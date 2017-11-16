@@ -42,7 +42,7 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
     	templateUrl: './activityAdd.html'
   	};
   	
-  	$scope.add = function(activity){
+  	$scope.add = function(){
     	$dialog.dialog(angular.extend(addDialogOptions, {})).open().then(function (){
     	    loadActivities($scope, $http);
         }) ;
@@ -53,13 +53,25 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
 	    templateUrl: './activityEdit.html',
 	};
 
-  	$scope.edit = function(activity){
-   	 	var activityToEdit = activity;
+  	$scope.edit = function(){
+   	 	var activityToEdit = $scope.activity;
     	$dialog.dialog(angular.extend(editDialogOptions, {resolve: {v: angular.copy(activityToEdit)}})).
     	open().then(function (){
     	    loadActivities($scope, $http);
         }) ;
   	};
+  	
+  	$scope.delete = function() {
+		var deleteRequest = {
+    	method : 'DELETE',
+       	url : 'http://localhost:8080/activity/'+ $scope.activity.id 
+		}  
+		
+  		$http(deleteRequest).then(function (response) {
+  		   	loadActivities($scope, $http);
+  		});
+  		//todo handle error
+	};
 });
 
 app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
@@ -71,21 +83,16 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
     	method : 'PUT',
        	url : 'http://localhost:8080/activity/'+ $scope.activity.id ,
        	data: {
-  				text: $scope.activity.text,
-  				tags: $scope.activity.tags,
-  				title: $scope.activity.title
+  				text: $activity.text,
+  				tags: $activity.tags,
+  				title: $activity.title
 			  }
 		}  
 		
   		$http(putRequest).then(function (response) {
-  		    $scope.activities = response.data;
+  		    loadActivities($scope, $http);
   		});
   		//todo handle error
-    	$scope.close();
-  	};
-  
-  	$scope.close = function(){
-  		loadActivities($scope, $http);
     	dialog.close();
   	};
 });
@@ -93,42 +100,23 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
 
 app.controller('AddActivityCtrl', function($scope, $http, dialog){
   
-  	$scope.save = function(Activity) {
+  	$scope.save = function($activity) {
   		var postRequest = {
     	method : 'POST',
        	url : 'http://localhost:8080/activity/' ,
        	data: {
-  				text: $scope.activity.text,
-  				tags: $scope.activity.tags,
-  				title: $scope.activity.title
+  				text: $activity.text,
+  				tags: $activity.tags,
+  				title: $activity.title
 			  }
 		}  
 		
   		$http(postRequest).then(function (response) {
-  		    $scope.activities = response.data;
+  		    loadActivities($scope, $http);
   		});
   		//todo handle error
-  		$scope.loadActivities($scope, $http);
-    	$scope.close();
+    	dialog.close();
   	};
-  
-  	$scope.close = function(){
-  		loadActivities($scope, $http);
-    	dialog.close(undefined);
-  	};
-});
-
-app.controller('DeleteActivityCtrl', function($scope, Activity){
-		var deleteRequest = {
-    	method : 'DELETE',
-       	url : 'http://localhost:8080/activity/'+ $scope.activity.id 
-		}  
-		
-  		$http(postRequest).then(function (response) {
-  		   	loadActivities($scope, $http);
-  		});
-  		//todo handle error
-
 });
 
 
@@ -146,8 +134,8 @@ app.controller('DeleteActivityCtrl', function($scope, Activity){
 				<td class="mdl-data-table__cell--non-numeric">{{activity.title}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.text}}</td>
 				<td class="mdl-data-table__cell--non-numeric">{{activity.tags}}</td>
-				<td class="mdl-data-table__cell--non-numeric"><button class="mdl-button" ng-click="edit(activity)">edit</button>
-					<button class="mdl-button" ng-click="delete(activity)">delete</button></td>
+				<td class="mdl-data-table__cell--non-numeric"><button class="mdl-button" ng-click="edit()">edit</button>
+					<button class="mdl-button" ng-click="delete()">delete</button></td>
 			</tr>
 		</table>
 	</div>
