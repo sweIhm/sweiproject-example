@@ -64,7 +64,12 @@
 			</activation>
 		</profile>
 		<profile>
-			<id>release</id>
+			<id>heroku</id>
+			<activation>
+				<property>
+					<name>heroku</name>
+				</property>
+			</activation>
 			<properties>
 				<activatedProperties>release</activatedProperties>
 			</properties>
