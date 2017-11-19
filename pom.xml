@@ -59,16 +59,11 @@
 			<properties>
 				<activatedProperties>dev</activatedProperties>
 			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 		</profile>
 		<profile>
-			<id>heroku</id>
+			<id>release</id>
 			<activation>
-				<property>
-					<name>heroku</name>
-				</property>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<activatedProperties>release</activatedProperties>
