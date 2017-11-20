@@ -1,5 +1,5 @@
-=== Beispielprojekt Activity Meter
-
+Beispielprojekt Activity Meter
+==============================
 
 This guide is based on a "hello world" link:/understanding/REST[RESTful web service] with Spring.
 
