@@ -3,7 +3,7 @@
 <head>
 <title>ActivityMeterApp</title>
 <meta charset="utf-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
@@ -16,7 +16,6 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="table.css" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet"
@@ -29,9 +28,13 @@ var app = angular.module('ActivityMeterApp', ['ui.bootstrap']);
 function loadActivities ($scope, $http){
 		$http({
        		 method : 'GET',
+       		 /*
        		 url: (window.location.hostname === 'localhost' ?
      				'http://localhost:8080/activity' :
                     'https://activityexample.herokuapp.com/activity')
+             */
+             url: 'activity'
+                    
     		}).then(function (response) {
      			 $scope.activities = response.data;
   		});
@@ -67,9 +70,7 @@ app.controller('ActivityCtrl', function ($scope, $http, $dialog) {
 	$scope.delete = function(activity) {
 		var deleteRequest = {
 			method : 'DELETE',
-			url: (window.location.hostname === 'localhost' ?
-     				'http://localhost:8080/activity/' :
-                    'https://activityexample.herokuapp.com/activity/') + activity.id
+			url: 'activity/' + activity.id
 		};
 		
   		$http(deleteRequest).then(function() {
@@ -83,9 +84,7 @@ app.controller('AddActivityCtrl', function($scope, $http, dialog){
   	$scope.save = function(Activity) {
   		var postRequest = {
     	method : 'POST',
-       	url: (window.location.hostname === 'localhost' ?
-     				'http://localhost:8080/activity' :
-                    'https://activityexample.herokuapp.com/activity') ,
+       	url: 'activity' ,
        	data: {
   				text: $scope.activity.text,
   				tags: $scope.activity.tags,
@@ -110,9 +109,7 @@ app.controller('EditActivityCtrl', function ($scope, $http, activity, dialog) {
   	$scope.save = function($activity) {
   	    var putRequest = {
     	method : 'PUT',
-       	url: (window.location.hostname === 'localhost' ?
-     				'http://localhost:8080/activity/' :
-                    'https://activityexample.herokuapp.com/activity/') + $scope.activity.id,
+       	url: 'activity/' + $scope.activity.id,
        	data: {
   				text: $scope.activity.text,
   				tags: $scope.activity.tags,
