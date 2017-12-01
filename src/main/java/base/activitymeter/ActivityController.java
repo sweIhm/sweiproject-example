@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/activity")
@@ -14,8 +15,8 @@ public class ActivityController {
   
   
   @GetMapping
-  public ArrayList<Activity> listAll() {
-      ArrayList<Activity> activities = new ArrayList<>();
+  public List<Activity> listAll() {
+      List<Activity> activities = new ArrayList<>();
       activityRepository.findAll().forEach(activity -> activities.add(activity));
       return activities;
   }
