@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.springframework</groupId>
-	<artifactId>activity-meter-example</artifactId>
+	<artifactId>am-example</artifactId>
 	<version>0.1.0</version>
-	<name>activity-meter-example (sweiproject-example)</name>
+	<name>Activity-Meter-Beispiel (sweiproject-example)</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
