@@ -1,5 +1,12 @@
 package base.activitymeter;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
@@ -10,13 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -38,7 +38,7 @@ public class ActivityControllerTest {
     MockHttpServletResponse response = mockMvc
         .perform(post("/activity")
             .content("{\"title\":\"Test\",\"text\":\"test test\",\"tags\":\"test\"}")
-            .contentType("application/json"))
+            .contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().isOk()).andReturn().getResponse();
     char id = response.getContentAsString().charAt(6);
     mockMvc.perform(delete("/activity/" + id));
@@ -49,12 +49,12 @@ public class ActivityControllerTest {
     MockHttpServletResponse response1 = mockMvc
         .perform(post("/activity")
             .content("{\"title\":\"Test1\",\"text\":\"test test1\",\"tags\":\"test1\"}")
-            .contentType("application/json"))
+            .contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().isOk()).andReturn().getResponse();
     MockHttpServletResponse response2 = mockMvc
         .perform(post("/activity")
             .content("{\"title\":\"Test2\",\"text\":\"test test2\",\"tags\":\"test2\"}")
-            .contentType("application/json"))
+            .contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().isOk()).andReturn().getResponse();
 
     char id1 = response1.getContentAsString().charAt(6);
@@ -68,7 +68,7 @@ public class ActivityControllerTest {
     MockHttpServletResponse response = mockMvc
         .perform(post("/activity")
             .content("{\"title\":\"Test\",\"text\":\"test test\",\"tags\":\"test\"}")
-            .contentType("application/json"))
+            .contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().isOk()).andReturn().getResponse();
     char id = response.getContentAsString().charAt(6);
     mockMvc.perform(get("/activity/" + id)).andExpect(status().isOk());
@@ -80,7 +80,7 @@ public class ActivityControllerTest {
     MockHttpServletResponse response = mockMvc
         .perform(post("/activity")
             .content("{\"title\":\"Test\",\"text\":\"test test\",\"tags\":\"test\"}")
-            .contentType("application/json"))
+            .contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().isOk()).andReturn().getResponse();
     char id = response.getContentAsString().charAt(6);
     mockMvc.perform(get("/activity/0")).andExpect(status().isOk());
@@ -92,7 +92,7 @@ public class ActivityControllerTest {
     MockHttpServletResponse response = mockMvc
         .perform(post("/activity")
             .content("{\"title\":\"Test\",\"text\":\"test test\",\"tags\":\"test\"}")
-            .contentType("application/json"))
+            .contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().isOk()).andReturn().getResponse();
     char id = response.getContentAsString().charAt(6);
     mockMvc.perform(delete("/activity/" + id)).andExpect(status().isOk());
@@ -103,7 +103,7 @@ public class ActivityControllerTest {
     MockHttpServletResponse response = mockMvc
         .perform(post("/activity")
             .content("{\"title\":\"Test\",\"text\":\"test test\",\"tags\":\"test\"}")
-            .contentType("application/json"))
+            .contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().isOk()).andReturn().getResponse();
     char id = response.getContentAsString().charAt(6);
     mockMvc.perform(put("/activity/" + id)
@@ -116,7 +116,7 @@ public class ActivityControllerTest {
   public void updateTestFailed() throws Exception {
     mockMvc.perform(put("/activity/" + 0)
         .content("{\"title\":\"TestTest\",\"text\":\"test test\",\"tags\":\"test\"}")
-        .contentType("application/json")).andExpect(status().isOk());
+        .contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk());
   }
 
 }
