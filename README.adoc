@@ -9,6 +9,7 @@ image:https://sonarcloud.io/api/badges/gate?key=org.springframework:am-example["
 
 https://sweihm.github.io/sweiproject-example/[Mehr auf Github Pages: https://sweihm.github.io/sweiproject-example/]
 
+==============================
 
 This guide is based on a "hello world" link:/understanding/REST[RESTful web service] with Spring.
 
